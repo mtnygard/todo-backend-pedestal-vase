@@ -1,0 +1,10 @@
+{:host                       "0.0.0.0"
+ :port                       8080
+ :prod                       false
+ :enable-upsert              true
+ :db-uri                     "datomic:mem://vase"
+ :http-upsert                true
+ :transact-upsert            true
+ :initial-descriptor         "sample_descriptor.edn"
+ :initial-version            [:example :v1]
+ :launch-transactor-on-start true}
