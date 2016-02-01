@@ -1,33 +1,42 @@
-# vase-osv
+# todo-backend-pedestal-vase
 
-TODO: Description
+An implementation of the [Todo Backend](http://www.todobackend.com/)
+spec using Pedestal and Datomic.
 
-## TODO: Template Notes
+## One-time Setup
 
-The generated project includes both a
-`build.boot` file (for [boot](http://boot-clj.com/), my preferred project manager) and,
-`project.clj` (for [Leiningen](http://leiningen.org/)).
+1. Clone https://github.com/TodoBackend/todo-backend-js-spec.git locally
+2. Run a Datomic transactor
+2. Install the Datomic schema: `lein run -m install-schema _datomic_uri_`
 
-The two are roughly equivalent, but I suggest you pick one, and discard the
-other.
+## See it work
 
-## Tasks
+1. Start the application: `lein run-dev` \*
+2. Open
+   [the specs](http://www.todobackend.com/specs/index.html?http://localhost:8080/)
+   to see test results.
+3. Enter [localhost:8080](http://localhost:8080/) as the base URL
 
-| Task                   |     Boot      |   Leiningen    |
-|------------------------|---------------|----------------|
-| Launch a REPL          | `boot repl`   | `lein repl`    |
-| Run Tests              | `boot test`   | `lein test`    |
-| Launch a server        | `boot server` | `lein run`     |
-| Build a deployable JAR | `boot build`  | `lein uberjar` |
+\* `lein run-dev` automatically detects code changes. Alternatively, you can run in production mode
+with `lein run`.
+
+## Configuration
+
+To configure logging see config/logback.xml. By default, the app logs to stdout and logs/.
+To learn more about configuring Logback, read its [documentation](http://logback.qos.ch/documentation.html).
+
+## Vase spec
+
+The file ```config/todo.edn``` defines the schema that Vase uses for
+it's REST interface as well as for Datomic. Vase creates the Datomic
+schema and generates routes that use the queries supplied in that
+file.
 
 ## Building a Docker container
 
 ```sh
 # With Leiningen
 $ lein uberjar
-
-# With Boot
-$ boot build
 
 $ sudo docker build .
 ```
@@ -40,19 +49,10 @@ This requires [Capstan](https://github.com/cloudius-systems/capstan) to be insta
 # With Leiningen
 $ lein uberjar
 
-# With Boot
-$ boot build
-
 $ capstan run [any options you want]
 ```
 
 You can also modify your `Capstanfile` to perform the build step for you.
-
-## Template Notes
-
-See the
-[pedestal-micro README](https://github.com/rkneufeld/pedestal-micro)
-for more information on how to use this template.
 
 ## License
 

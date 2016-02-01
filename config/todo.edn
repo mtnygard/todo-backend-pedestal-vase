@@ -4,17 +4,15 @@
                   [[:todo/title     :one :string :unique "The title of a single TODO item"]
                    [:todo/completed :one :boolean        "A flag. True when the TODO item is completed"]
                    [:todo/order     :one :long           "The position this item should occupy in a sequence"]]]}}
-  :v1    {:routes [["/about"     {:get #vase/respond   {:name :todo-v1/about-response
-                                                        :body "Todo API"}}]
-                   ["/todo"      {:get #vase/query     {:name  :todo-v1/todo-list
+  :v1    {:routes [["/todo"      {:get #vase/query     {:name  :todo-v1/todo-list
                                                         :query [:find (pull ?id [*])
                                                                 :where [?id :todo/title]]}
                                   :post #vase/transact {:name       :todo-v1/todo-create
                                                         :properties [:db/id :todo/title :todo/order :todo/completed]}}]
-                   ["/todo/:id"   {:get #vase/query    {:name       :todo-v1/todo-show
-                                                        :params     [id]
-                                                        :edn-coerce [id]
-                                                        :query      [:find (pull ?e [*])
-                                                                     :in $ ?id
-                                                                     :where [?e :db/id ?id]]}}]]
+                   ["/todo/:id"   {:get #vase/query     {:name       :todo-v1/todo-show
+                                                         :params     [id]
+                                                         :edn-coerce [id]
+                                                         :query      [:find (pull ?id [*])
+                                                                      :in $ ?id
+                                                                      :where [?id :todo/title]]}}]]
           :schemas [:todo/schema]}}}

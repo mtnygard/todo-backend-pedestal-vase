@@ -41,7 +41,7 @@
              ::http/port          (or (config :port) 8080)
              ::http/type          :jetty
              ::http/join?         false
-             ::http/allowed-origins ["http://localhost:3449"]
+             ::http/allowed-origins ["http://localhost:3449" "http://www.todobackend.com"]
              ::http/resource-path "/public"
              ::http/routes        (if (config :enable-upsert)
                                     #(:routes @vase-context)
