@@ -8,8 +8,6 @@
             [vase.config :as conf]
             [vase]))
 
-(def vase-context (atom (vase/map->Context {:config config})))
-
 (defn clj-ver
   [request]
   (ring-resp/response (format "Clojure %s - served from %s"
@@ -23,8 +21,8 @@
 (defn make-master-routes
   [vase-context-atom]
   `["/" {:get health-check} ^:interceptors [interceptor/attach-received-time
-                                         interceptor/attach-request-id
-                                         http/html-body
+                                            interceptor/attach-request-id
+                                            http/html-body
                                             ~(interceptor/bind-vase-context vase-context-atom)]
     ["/about" {:get clj-ver}]
     ^:vase/api-root ["/api" {:get vase/show-routes}
@@ -34,7 +32,7 @@
 (defn service-map
   ([] (service-map {}))
   ([service-overrides]
-   (let [config (conf/default-config)
+   (let [config       (conf/default-config)
          vase-context (atom (vase/map->Context {:config config}))]
      (vase/bootstrap-vase-context! vase-context (make-master-routes vase-context))
      (merge {:env                 :dev
@@ -43,6 +41,7 @@
              ::http/port          (or (config :port) 8080)
              ::http/type          :jetty
              ::http/join?         false
+             ::http/allowed-origins ["http://localhost:3449"]
              ::http/resource-path "/public"
              ::http/routes        (if (config :enable-upsert)
                                     #(:routes @vase-context)

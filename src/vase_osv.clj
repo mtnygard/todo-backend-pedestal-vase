@@ -29,7 +29,7 @@
 (defn start [& args]
   (db/bootstrap! datomic-uri)
   (let [service-overrides (apply hash-map args)
-        server (server service-overrides)]
+        server            (server service-overrides)]
     (http/start server)))
 
 (defn stop [serv]

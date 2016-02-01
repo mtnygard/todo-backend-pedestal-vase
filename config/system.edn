@@ -5,6 +5,6 @@
  :db-uri                     "datomic:mem://vase"
  :http-upsert                true
  :transact-upsert            true
- :initial-descriptor         "sample_descriptor.edn"
- :initial-version            [:example :v1]
+ :initial-descriptor         "todo.edn"
+ :initial-version            [:todo :v1]
  :launch-transactor-on-start true}
